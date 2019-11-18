@@ -16265,11 +16265,11 @@ module.exports = Analyzer = class Analyzer {
           d.chOut = d.chIn;
           // according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
           if (ceil_mode === 0 || round_mode === 0) {
-            d.wOut = Math.floor((d.wIn + 2 * pad_w - kernel_w - substructer) / stride_w) + 1;
-            d.hOut = Math.floor((d.hIn + 2 * pad_h - kernel_h - substructer) / stride_h) + 1;
+            d.wOut = Math.floor((d.wIn + 2 * pad_w - kernel_w) / stride_w) + 1;
+            d.hOut = Math.floor((d.hIn + 2 * pad_h - kernel_h) / stride_h) + 1;
           } else {
-            d.wOut = Math.ceil((d.wIn + 2 * pad_w - kernel_w - substructer) / stride_w) + 1;
-            d.hOut = Math.ceil((d.hIn + 2 * pad_h - kernel_h - substructer) / stride_h) + 1;
+            d.wOut = Math.ceil((d.wIn + 2 * pad_w - kernel_w) / stride_w) + 1;
+            d.hOut = Math.ceil((d.hIn + 2 * pad_h - kernel_h) / stride_h) + 1;
           }
           if (isglobal) {
             d.wOut = d.hOut = 1;
