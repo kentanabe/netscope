@@ -159,7 +159,7 @@ module.exports =
                     pooltype = (params.pool ? 'MAX').toUpperCase()
                     d.chOut = d.chIn
                     # according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
-                    if (ceil_mode == 0) or (round_mode == 0)
+                    if (ceil_mode == 0) || (round_mode == 0)
                       d.wOut = Math.floor((d.wIn + 2*pad_w - kernel_w) / stride_w) + 1
                       d.hOut = Math.floor((d.hIn + 2*pad_h - kernel_h) / stride_h) + 1
                     else
