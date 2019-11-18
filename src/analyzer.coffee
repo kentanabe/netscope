@@ -154,9 +154,17 @@ module.exports =
                     pad_w    = params.pad_w ? (params.pad ? 0)
                     pad_h    = params.pad_h ? (params.pad ? 0)
                     isglobal = params.global_pooling ? 0
+                    ceil_mode = if (params.ceil_mode ? "true") == "false" then 0 else 1
+                    round_mode = if (params.round_mode ? "CEIL") == "FLOOR" then 0 else 1
                     pooltype = (params.pool ? 'MAX').toUpperCase()
                     d.chOut = d.chIn
                     # according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
+                    if ceil_mode == 0
+                      substructer = 1
+                    else if round_mode == 0
+                      substructer = 1
+                    else
+                      substructer = 0
                     d.wOut = Math.ceil((d.wIn + 2*pad_w - kernel_w) / stride_w) + 1
                     d.hOut = Math.ceil((d.hIn + 2*pad_h - kernel_h) / stride_h) + 1
                     if isglobal
