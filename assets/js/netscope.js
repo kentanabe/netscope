@@ -16261,7 +16261,7 @@ module.exports = Analyzer = class Analyzer {
           isglobal = (ref28 = params.global_pooling) != null ? ref28 : 0;
           pooltype = ((ref29 = params.pool) != null ? ref29 : 'MAX').toUpperCase();
           ceil_mode = ((ref57 = params.ceil_mode) != null ? ref57 : "true") === "false" ? 0 : 1;
-          round_mode = ((ref58 = params.round_mode) != null ? ref58 : 'CEIL') === 'FLOOR' ? 0 : 1;
+          round_mode = ((ref58 = params.round_mode) != null ? ref58 : 'CEIL').toUpperCase() === 'FLOOR' ? 0 : 1;
           d.chOut = d.chIn;
           // according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
           if (ceil_mode === 0 || round_mode === 0) {
