@@ -155,7 +155,7 @@ module.exports =
                     pad_h    = params.pad_h ? (params.pad ? 0)
                     isglobal = params.global_pooling ? 0
                     ceil_mode = if (params.ceil_mode ? "true") == "false" then 0 else 1
-                    round_mode = if (params.round_mode ? 'CEIL').toUpperCase() == 'FLOOR' then 0 else 1
+                    round_mode = if (params.round_mode ? "CEIL").toUpperCase() == "FLOOR" then 0 else 1
                     pooltype = (params.pool ? 'MAX').toUpperCase()
                     d.chOut = d.chIn
                     # according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
