@@ -16107,7 +16107,7 @@ module.exports = Analyzer = class Analyzer {
   constructor() {}
 
   analyze(net) {
-    var aspect_ratios, d, dilation, dim_in, failed, feature_map, group, has_bias, i, infered_dim, isglobal, j, k, kernel, kernel_h, kernel_w, key, l, layertype, len, len1, len2, len3, mem, mode, module, n, n_elements, newshape, num_inputs, num_ops, num_priors, num_region_proposals, numout, op, ops, p, pad_h, pad_w, params, parent, parent2, permutation, pooltype, power, prod_in_dims, prod_out_dims, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref30, ref31, ref32, ref33, ref34, ref35, ref36, ref37, ref38, ref39, ref4, ref40, ref41, ref42, ref43, ref44, ref45, ref46, ref47, ref48, ref49, ref5, ref50, ref51, ref52, ref53, ref54, ref55, ref56, ref6, ref7, ref8, ref9, roi_proposals, scale, settings, shape, shift, size, stride_h, stride_w, summary, trivial_layers, val;
+    var aspect_ratios, ceil_mode, d, dilation, dim_in, failed, feature_map, group, has_bias, i, infered_dim, isglobal, j, k, kernel, kernel_h, kernel_w, key, l, layertype, len, len1, len2, len3, mem, mode, module, n, n_elements, newshape, num_inputs, num_ops, num_priors, num_region_proposals, numout, op, ops, p, pad_h, pad_w, params, parent, parent2, permutation, pooltype, power, prod_in_dims, prod_out_dims, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref30, ref31, ref32, ref33, ref34, ref35, ref36, ref37, ref38, ref39, ref4, ref40, ref41, ref42, ref43, ref44, ref45, ref46, ref47, ref48, ref49, ref5, ref50, ref51, ref52, ref53, ref54, ref55, ref56, ref57, ref58, ref6, ref7, ref8, ref9, roi_proposals, round_mode, scale, settings, shape, shift, size, stride_h, stride_w, summary, trivial_layers, val;
     ref = net.sortTopologically();
     //# Add Input/Output Dimensions + Channels to each Node / Layer
     // shape.dim: (    N   x   K   x   W   x   H   )
@@ -16260,10 +16260,17 @@ module.exports = Analyzer = class Analyzer {
           pad_h = (ref26 = params.pad_h) != null ? ref26 : (ref27 = params.pad) != null ? ref27 : 0;
           isglobal = (ref28 = params.global_pooling) != null ? ref28 : 0;
           pooltype = ((ref29 = params.pool) != null ? ref29 : 'MAX').toUpperCase();
+          ceil_mode = ((ref57 = params.ceil_mode) != null ? ref57 : "true") === "false" ? 0 : 1;
+          round_mode = ((ref58 = params.round_mode) != null ? ref58 : "CEIL") === "FLOOR" ? 0 : 1;
           d.chOut = d.chIn;
           // according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
-          d.wOut = Math.ceil((d.wIn + 2 * pad_w - kernel_w) / stride_w) + 1;
-          d.hOut = Math.ceil((d.hIn + 2 * pad_h - kernel_h) / stride_h) + 1;
+          if (ceil_mode === 0 || round_mode === 0) {
+            substructer = 1
+          } else {
+            substructer = 0
+          }
+          d.wOut = Math.ceil((d.wIn + 2 * pad_w - kernel_w - substructer) / stride_w) + 1;
+          d.hOut = Math.ceil((d.hIn + 2 * pad_h - kernel_h - substructer) / stride_h) + 1;
           if (isglobal) {
             d.wOut = d.hOut = 1;
           }
