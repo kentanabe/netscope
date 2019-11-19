@@ -16346,7 +16346,7 @@ module.exports = Analyzer = class Analyzer {
               width_out_ = (width_in_eff_ - 1) / shrink_factor + 1;
             }
           } else {
-            if (has_zoom_factor == 1 {
+            if (has_zoom_factor == 1) {
               height_out_ = Math.floor(height_in_eff_ + (height_in_eff_ - 1) * (zoom_factor - 1));
               width_out_ = Math.floor(width_in_eff_ + (width_in_eff_ - 1) * (zoom_factor - 1));
             } else {
