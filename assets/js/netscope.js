@@ -16318,9 +16318,9 @@ module.exports = Analyzer = class Analyzer {
           break;
         case "interp":
           //dimensions
-          params = n.attribs.pooling_param;
-          pad_beg = (ref24 = params.pad_beg) != null ? ref24 : 0
-          pad_end = (ref25 = params.pad_end) != null ? ref25 : 0
+          params = n.attribs.interp_param;
+          pad_beg = (ref24 = params.pad_beg) != null ? ref24 : 0;
+          pad_end = (ref25 = params.pad_end) != null ? ref25 : 0;
           height_in_eff_ = d.hIn + pad_beg + pad_end;
           width_in_eff_ = d.wIn + pad_beg + pad_end;
           has_shrink_factor = params.shrink_factor ? 1 : 0;
