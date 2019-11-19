@@ -16205,6 +16205,7 @@ module.exports = Analyzer = class Analyzer {
             #memory
             #-- none
             d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+          }
           break;
         case "convolution":
           //dimensions
