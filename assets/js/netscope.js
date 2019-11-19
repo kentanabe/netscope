@@ -16183,16 +16183,16 @@ module.exports = Analyzer = class Analyzer {
             d.chIn = channels;
             d.hIn = height;
             d.wIn = width;
-            d.wOut  = d.wIn;
-            d.hOut  = d.hIn;
-            d.chOut = d.chIn;
-            d.batchOut = d.batchIn;
-            //computation
-            //-- none
-            //memory
-            //-- none
-            d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           }
+          d.wOut  = d.wIn;
+          d.hOut  = d.hIn;
+          d.chOut = d.chIn;
+          d.batchOut = d.batchIn;
+          //computation
+          //-- none
+          //memory
+          //-- none
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
         case "convolution":
           //dimensions
