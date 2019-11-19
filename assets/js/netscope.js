@@ -16183,15 +16183,14 @@ module.exports = Analyzer = class Analyzer {
             d.chIn = channels;
             d.hIn = height;
             d.wIn = width;
-            # update output sizes
             d.wOut  = d.wIn;
             d.hOut  = d.hIn;
             d.chOut = d.chIn;
             d.batchOut = d.batchIn;
-            #computation
-            #-- none
-            #memory
-            #-- none
+            //computation
+            //-- none
+            //memory
+            //-- none
             d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           }
           break;
