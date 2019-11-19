@@ -16165,7 +16165,7 @@ module.exports = Analyzer = class Analyzer {
           //-- none
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
-        case "dummydata"
+        case "dummydata":
           //dimensions
           params = n.attribs.dummy_data_param;
           if (params.shape != null) {
