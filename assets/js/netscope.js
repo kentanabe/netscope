@@ -16165,6 +16165,47 @@ module.exports = Analyzer = class Analyzer {
           //-- none
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
+        case "dummydata"
+          //dimensions
+          params = n.attribs.dummy_data_param;
+          if (params.shape != null) {
+            shape = params.shape;
+            d.batchIn = shape.dim[0];
+            d.chIn = shape.dim[1];
+            d.hIn = shape.dim[2];
+            d.wIn = shape.dim[3];
+          } else {
+            if (params.num != null) {
+              d.bachIn = params.num
+            } else {
+              d.bachIn = 2
+            }
+            if (params.channels != null) {
+              d.chIn = params.channels
+            } else {
+              d.chIn = 3
+            }
+            if (params.height != null) {
+              d.hIn = params.height
+            } else {
+              d.In = 4
+            }
+            if (params.width != null) {
+              d.wIn = params.width
+            } else {
+              d.wIn = 5
+            }
+            # update output sizes
+            d.wOut  = d.wIn
+            d.hOut  = d.hIn
+            d.chOut = d.chIn
+            d.batchOut = d.batchIn
+            #computation
+            #-- none
+            #memory
+            #-- none
+            d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+          break;
         case "convolution":
           //dimensions
           params = n.attribs.convolution_param;

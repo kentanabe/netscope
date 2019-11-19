@@ -53,6 +53,42 @@ module.exports =
                     #-- none
                     d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
 
+                when "dummydata"
+                    #dimensions
+                    if n.attribs.dummy_data_param?.shape?
+                        shape     = n.attribs.input_param.shape
+                        d.batchIn = shape.dim[0]
+                        d.chIn    = shape.dim[1]
+                        d.hIn     = shape.dim[2]
+                        d.wIn     = shape.dim[3]
+                    else
+                        if n.attribs.dummy_data_param?.num?
+                            d.batchIn = n.attribs.dummy_data_param.num
+                        else
+                            d.batchIn = 2
+                        if n.attribs.dummy_data_param?.channels?
+                            d.chIn = n.attribs.dummy_data_param.channels
+                        else
+                            d.chIn = 3
+                        if n.attribs.dummy_data_param?.height ?
+                            d.hIn = n.attribs.dummy_data_param.height 
+                        else
+                            d.hIn = 4
+                        if n.attribs.dummy_data_param?.width ?
+                            d.wIn = n.attribs.dummy_data_param.width 
+                        else
+                            d.wIn = 5
+                    # update output sizes
+                    d.wOut  = d.wIn
+                    d.hOut  = d.hIn
+                    d.chOut = d.chIn
+                    d.batchOut = d.batchIn
+                    #computation
+                    #-- none
+                    #memory
+                    #-- none
+                    d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+
                 when "convolution"
                     #dimensions
                     params   = n.attribs.convolution_param
