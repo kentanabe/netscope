@@ -55,27 +55,28 @@ module.exports =
 
                 when "dummydata"
                     #dimensions
-                    if n.attribs.dummy_data_param?.shape?
-                        shape     = n.attribs.input_param.shape
+                    params = n.attribs.dummy_data_param
+                    if params.shape?
+                        shape     = n.attribs.dummy_data_param.shape
                         d.batchIn = shape.dim[0]
                         d.chIn    = shape.dim[1]
                         d.hIn     = shape.dim[2]
                         d.wIn     = shape.dim[3]
                     else
-                        if n.attribs.dummy_data_param?.num?
-                            d.batchIn = n.attribs.dummy_data_param.num
+                        if params.num?
+                            d.batchIn = params.num
                         else
                             d.batchIn = 2
-                        if n.attribs.dummy_data_param?.channels?
-                            d.chIn = n.attribs.dummy_data_param.channels
+                        if params.channels?
+                            d.chIn = params.channels
                         else
                             d.chIn = 3
-                        if n.attribs.dummy_data_param?.height?
-                            d.hIn = n.attribs.dummy_data_param.height 
+                        if params.height?
+                            d.hIn = params.height 
                         else
                             d.hIn = 4
-                        if n.attribs.dummy_data_param?.width?
-                            d.wIn = n.attribs.dummy_data_param.width 
+                        if params.width?
+                            d.wIn = params.width 
                         else
                             d.wIn = 5
                     # update output sizes
