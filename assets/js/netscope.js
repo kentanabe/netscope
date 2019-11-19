@@ -16175,36 +16175,24 @@ module.exports = Analyzer = class Analyzer {
             d.hIn = shape.dim[2];
             d.wIn = shape.dim[3];
           } else {
-            if (params.num != null) {
-              d.bachIn = params.num
-            } else {
-              d.bachIn = 2
-            }
-            if (params.channels != null) {
-              d.chIn = params.channels
-            } else {
-              d.chIn = 3
-            }
-            if (params.height != null) {
-              d.hIn = params.height
-            } else {
-              d.In = 4
-            }
-            if (params.width != null) {
-              d.wIn = params.width
-            } else {
-              d.wIn = 5
-            }
+            num = (ref4 = params.num) != null ? ref4 : 2;
+            channels = (ref5 = params.channels) != null ? ref5 : 3;
+            height = (ref6 = params.height) != null ? ref6 : 4;
+            width = (ref7 = params.width) != null ? ref7 : 5;
+            d.bachIn = num;
+            d.chIn = channels;
+            d.hIn = height;
+            d.wIn = width;
             # update output sizes
-            d.wOut  = d.wIn
-            d.hOut  = d.hIn
-            d.chOut = d.chIn
-            d.batchOut = d.batchIn
+            d.wOut  = d.wIn;
+            d.hOut  = d.hIn;
+            d.chOut = d.chIn;
+            d.batchOut = d.batchIn;
             #computation
             #-- none
             #memory
             #-- none
-            d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+            d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           }
           break;
         case "convolution":

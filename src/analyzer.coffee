@@ -63,22 +63,14 @@ module.exports =
                         d.hIn     = shape.dim[2]
                         d.wIn     = shape.dim[3]
                     else
-                        if params.num?
-                            d.batchIn = params.num
-                        else
-                            d.batchIn = 2
-                        if params.channels?
-                            d.chIn = params.channels
-                        else
-                            d.chIn = 3
-                        if params.height?
-                            d.hIn = params.height 
-                        else
-                            d.hIn = 4
-                        if params.width?
-                            d.wIn = params.width 
-                        else
-                            d.wIn = 5
+                        num = params.num ? 2
+                        channels = params.channels ? 3
+                        height = params.height ? 4
+                        width = params.width ? 5
+                        d.batchIn = num
+                        d.chIn = channels
+                        d.hIn = height
+                        d.wIn = width
                     # update output sizes
                     d.wOut  = d.wIn
                     d.hOut  = d.hIn
