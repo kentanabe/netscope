@@ -16344,6 +16344,7 @@ module.exports = Analyzer = class Analyzer {
             } else {
               height_out_ = (height_in_eff_ - 1) / shrink_factor + 1;
               width_out_ = (width_in_eff_ - 1) / shrink_factor + 1;
+            }
           } else {
             if (has_zoom_factor == 1 {
               height_out_ = Math.floor(height_in_eff_ + (height_in_eff_ - 1) * (zoom_factor - 1));
@@ -16358,6 +16359,7 @@ module.exports = Analyzer = class Analyzer {
                 onerror('Unknown Interp');
                 debugger;
               }
+            }
           d.chOut = d.chIn;
           d.batchOut = d.batchIn;
           d.wOut = width_out_;
