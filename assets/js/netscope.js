@@ -16323,8 +16323,8 @@ module.exports = Analyzer = class Analyzer {
           pad_h = (ref26 = params.pad_h) != null ? ref26 : (ref27 = params.pad) != null ? ref27 : 0;
           height_in_eff_ = d.hIn + pad_h + pad_h;
           width_in_eff_ = d.wIn + pad_w + pad_w;
-          has_shrink_factor = params.shrink_factor ? 1 else 0;
-          has_zoom_factor = params.zoom_factor ? 1 else 0;
+          has_shrink_factor = params.shrink_factor ? 1 : 0;
+          has_zoom_factor = params.zoom_factor ? 1 : 0;
           shrink_factor = has_shrink_factor ? params.shrink_factor : 1;
           zoom_factor = has_zoom_factor ? params.zoom_factor : 1;
           if (shrink_factor < 1) {
@@ -16349,8 +16349,8 @@ module.exports = Analyzer = class Analyzer {
               height_out_ = Math.floor(height_in_eff_ + (height_in_eff_ - 1) * (zoom_factor - 1));
               width_out_ = Math.floor(width_in_eff_ + (width_in_eff_ - 1) * (zoom_factor - 1));
             } else {
-              has_height = params.height ? 1 else 0;
-              has_width = params.width ? 1 else 0;
+              has_height = params.height ? 1 : 0;
+              has_width = params.width ? 1 : 0;
               if (has_width && has_height) {
                 height_out_ = params.height;
                 width_out_ = params.width;
