@@ -70,11 +70,11 @@ module.exports =
                             d.chIn = n.attribs.dummy_data_param.channels
                         else
                             d.chIn = 3
-                        if n.attribs.dummy_data_param?.height ?
+                        if n.attribs.dummy_data_param?.height?
                             d.hIn = n.attribs.dummy_data_param.height 
                         else
                             d.hIn = 4
-                        if n.attribs.dummy_data_param?.width ?
+                        if n.attribs.dummy_data_param?.width?
                             d.wIn = n.attribs.dummy_data_param.width 
                         else
                             d.wIn = 5
