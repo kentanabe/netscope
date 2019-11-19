@@ -6,8 +6,9 @@ This is a CNN Analyzer tool, based on Netscope by [dgschwend](https://github.com
 Netscope is a web-based tool for visualizing neural network topologies. It currently supports UC Berkeley's [Caffe framework](https://github.com/bvlc/caffe).
 
 This fork adds support for following layers.
-- Interp layer
+- DummyData layer
 - Pooling layer with round_mode or ceil_mode
+- Interp layer
 
 ### Documentation
 - Netscope [Quick Start Guide](http://kentanabe.github.io/netscope/quickstart.html)
