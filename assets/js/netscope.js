@@ -16107,7 +16107,7 @@ module.exports = Analyzer = class Analyzer {
   constructor() {}
 
   analyze(net) {
-    var aspect_ratios, ceil_mode, d, dilation, dim_in, failed, feature_map, group, has_bias, i, infered_dim, isglobal, j, k, kernel, kernel_h, kernel_w, key, l, layertype, len, len1, len2, len3, mem, mode, module, n, n_elements, newshape, num_inputs, num_ops, num_priors, num_region_proposals, numout, op, ops, p, pad_h, pad_w, params, parent, parent2, permutation, pooltype, power, prod_in_dims, prod_out_dims, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref30, ref31, ref32, ref33, ref34, ref35, ref36, ref37, ref38, ref39, ref4, ref40, ref41, ref42, ref43, ref44, ref45, ref46, ref47, ref48, ref49, ref5, ref50, ref51, ref52, ref53, ref54, ref55, ref56, ref57, ref58, ref6, ref7, ref8, ref9, roi_proposals, round_mode, scale, settings, shape, shift, size, stride_h, stride_w, summary, trivial_layers, val;
+    var aspect_ratios, ceil_mode, d, dilation, dim_in, failed, feature_map, group, has_bias, has_shrink_factor, has_zoom_factor, height_in_eff_, height_out_, i, infered_dim, isglobal, j, k, kernel, kernel_h, kernel_w, key, l, layertype, len, len1, len2, len3, mem, mode, module, n, n_elements, newshape, num_inputs, num_ops, num_priors, num_region_proposals, numout, op, ops, p, pad_h, pad_w, params, parent, parent2, permutation, pooltype, power, prod_in_dims, prod_out_dims, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref30, ref31, ref32, ref33, ref34, ref35, ref36, ref37, ref38, ref39, ref4, ref40, ref41, ref42, ref43, ref44, ref45, ref46, ref47, ref48, ref49, ref5, ref50, ref51, ref52, ref53, ref54, ref55, ref56, ref57, ref58, ref6, ref7, ref8, ref9, roi_proposals, round_mode, scale, settings, shape, shift, shrink_factor, size, stride_h, stride_w, summary, trivial_layers, val, width_out_, zoom_factor;
     ref = net.sortTopologically();
     //# Add Input/Output Dimensions + Channels to each Node / Layer
     // shape.dim: (    N   x   K   x   W   x   H   )
@@ -16313,6 +16313,55 @@ module.exports = Analyzer = class Analyzer {
             //d.comp.div = (d.wOut*d.hOut*d.chOut) #divide by const.
             onerror(`Unknown pooling type ${pooltype}`);
           }
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
+        case "interp":
+          //dimensions
+          params = n.attribs.pooling_param;
+          pad_w = (ref24 = params.pad_w) != null ? ref24 : (ref25 = params.pad) != null ? ref25 : 0;
+          pad_h = (ref26 = params.pad_h) != null ? ref26 : (ref27 = params.pad) != null ? ref27 : 0;
+          height_in_eff_ = d.hIn + pad_h + pad_h;
+          width_in_eff_ = d.wIn + pad_w + pad_w;
+          has_shrink_factor = params.shrink_factor ? 1 else 0;
+          has_zoom_factor = params.zoom_factor ? 1 else 0;
+          shrink_factor = has_shrink_factor ? params.shrink_factor : 1;
+          zoom_factor = has_zoom_factor ? params.zoom_factor : 1;
+          if (shrink_factor < 1) {
+            onerror('Shrink factor must be positive')
+            debugger;
+          }
+          if (zoom_factor < 1) {
+            onerror('Zoom factor must be positive')
+            debugger;
+          }
+          if has_shrink_factor == 1) {
+            if has_zoom_factor == 1) {
+              height_out_ = (height_in_eff_ - 1) / shrink_factor + 1;
+              width_out_ = (width_in_eff_ - 1) / shrink_factor + 1;
+              height_out_ = Math.floor(height_out_ + (height_out_ - 1) * (zoom_factor - 1));
+              width_out_ = Math.floor(width_out_ + (width_out_ - 1) * (zoom_factor - 1));
+            } else {
+              height_out_ = (height_in_eff_ - 1) / shrink_factor + 1;
+              width_out_ = (width_in_eff_ - 1) / shrink_factor + 1;
+          } else {
+            if has_zoom_factor == 1 {
+              height_out_ = Math.floor(height_in_eff_ + (height_in_eff_ - 1) * (zoom_factor - 1));
+              width_out_ = Math.floor(width_in_eff_ + (width_in_eff_ - 1) * (zoom_factor - 1));
+            } else {
+              has_height = params.height ? 1 else 0;
+              has_width = params.width ? 1 else 0;
+              if (has_width && has_height) {
+                height_out_ = params.height;
+                width_out_ = params.width;
+              } else {
+                onerror('Unknown Interp');
+                debugger;
+              }
+          d.chOut = d.chIn;
+          d.batchOut = d.batchIn;
+          d.wOut = width_out_;
+          d.hOut = height_out_;
           //memory
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;

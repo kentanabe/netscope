@@ -211,6 +211,53 @@ module.exports =
                     #memory
                     d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
 
+                when "interp"
+                    #dimensions
+                    params = n.attribs.interp_param
+                    pad_w    = params.pad_w ? (params.pad ? 0)
+                    pad_h    = params.pad_h ? (params.pad ? 0)
+                    height_in_eff_ = d.hIn + pad_h + pad_h
+                    width_in_eff_ = d.wIn + pad_w + pad_w
+                    has_shrink_factor = params.shrink_factor ? 1 else 0
+                    has_zoom_factor = params.zoom_factor ? 1 else 0
+                    shrink_factor = has_shrink_factor ? params.shrink_factor : 1
+                    zoom_factor = has_zoom_factor ? params.zoom_factor : 1
+                    if shrink_factor < 1
+                      onerror('Shrink factor must be positive')
+                      debugger;
+                    if zoom_factor < 1
+                      onerror('Zoom factor must be positive')
+                      debugger;
+                    
+                    if has_shrink_factor == 1
+                      if has_zoom_factor == 1
+                        height_out_ = (height_in_eff_ - 1) / shrink_factor + 1
+                        width_out_ = (width_in_eff_ - 1) / shrink_factor + 1
+                        height_out_ = Math.floor(height_out_ + (height_out_ - 1) * (zoom_factor - 1))
+                        width_out_ = Math.floor(width_out_ + (width_out_ - 1) * (zoom_factor - 1))
+                      else
+                        height_out_ = (height_in_eff_ - 1) / shrink_factor + 1
+                        width_out_ = (width_in_eff_ - 1) / shrink_factor + 1
+                    else
+                      if has_zoom_factor == 1
+                        height_out_ = Math.floor(height_out_ + (height_out_ - 1) * (zoom_factor - 1))
+                        width_out_ = Math.floor(width_out_ + (width_out_ - 1) * (zoom_factor - 1))
+                      else
+                        has_width = params.width ? 1 else 0
+                        has_height = params.height ? 1 else 0
+                        if (has_width && has_height)
+                          height_out_ = params.height
+                          width_out_ = params.width
+                        else
+                          onerror('Unknown Interp')
+                          debugger;
+                    d.chOut = d.chIn
+                    d.batchOut = d.batchIn
+                    d.wOut = width_out_
+                    d.hOut = height_out_
+                    #memory
+                    d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+
                 when "batchnorm", "bn"
                     #dimensions
                     d.wOut  = d.wIn
