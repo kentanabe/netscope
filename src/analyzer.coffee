@@ -214,10 +214,10 @@ module.exports =
                 when "interp"
                     #dimensions
                     params = n.attribs.interp_param
-                    pad_w    = params.pad_w ? (params.pad ? 0)
-                    pad_h    = params.pad_h ? (params.pad ? 0)
-                    height_in_eff_ = d.hIn + pad_h + pad_h
-                    width_in_eff_ = d.wIn + pad_w + pad_w
+                    pad_beg = params.pad_beg ? 0
+                    pad_end = params.pad_end ? 0
+                    height_in_eff_ = d.hIn + pad_beg + pad_end
+                    width_in_eff_ = d.wIn + pad_beg + pad_end
                     has_shrink_factor = params.shrink_factor ? 1 else 0
                     has_zoom_factor = params.zoom_factor ? 1 else 0
                     shrink_factor = has_shrink_factor ? params.shrink_factor : 1
