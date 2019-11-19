@@ -16360,6 +16360,7 @@ module.exports = Analyzer = class Analyzer {
                 debugger;
               }
             }
+          }
           d.chOut = d.chIn;
           d.batchOut = d.batchIn;
           d.wOut = width_out_;
