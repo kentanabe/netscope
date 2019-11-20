@@ -16366,7 +16366,7 @@ module.exports = Analyzer = class Analyzer {
           d.wOut = width_out_;
           d.hOut = height_out_;
           //computation
-          if ((d.hOut != d.hIn) || (d.wOut != d.wIn)) {
+          if (d.hOut != d.hIn || d.wOut != d.wIn) {
             d.comp.macc = 2 * 2 * d.wOut * d.hOut * d.chOut * d.batchOut;
           }
           //memory
