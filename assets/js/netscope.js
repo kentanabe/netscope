@@ -16548,7 +16548,7 @@ module.exports = Analyzer = class Analyzer {
                  p = ref36[l];
                  d.wOut = (d.wOut < p.analysis.wOut) ? p.analysis.wOut : d.wOut;
                  d.hOut = (d.hOut < p.analysis.hOut) ? p.analysis.hOut : d.hOut;
-                 d.wOut = (d.chOut < p.analysis.chOut) ? p.analysis.chOut : d.chOut;
+                 d.chOut = (d.chOut < p.analysis.chOut) ? p.analysis.chOut : d.chOut;
               }
           }
           //computation: scale = multiplication
