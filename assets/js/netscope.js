@@ -16543,10 +16543,10 @@ module.exports = Analyzer = class Analyzer {
               d.hOut = d.hIn;
               d.chOut = d.chIn;
           } else {
-              parent = n.parents[0].analysis;
-              d.wOut = parent.wOut;
-              d.hOut = parent.hOut;
-              d.chOut = parent.chOut;
+              parent0 = n.parents[0].analysis;
+              d.wOut = parent0.wOut;
+              d.hOut = parent0.hOut;
+              d.chOut = parent0.chOut;
           }
           //computation: scale = multiplication
           d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
@@ -16556,10 +16556,10 @@ module.exports = Analyzer = class Analyzer {
         case "broadcast_mul":
           //dimensions
           //# assume pass-through
-          parent = n.parents[0].analysis;
-          d.wOut = parent.wOut;
-          d.hOut = parent.hOut;
-          d.chOut = parent.chOut;
+          parent0 = n.parents[0].analysis;
+          d.wOut = parent0.wOut;
+          d.hOut = parent0.hOut;
+          d.chOut = parent0.chOut;
           //computation: scale = multiplication
           d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
           //memory
@@ -16568,10 +16568,10 @@ module.exports = Analyzer = class Analyzer {
         case "broadcast_add":
           //dimensions
           //# assume pass-through
-          parent = n.parents[0].analysis;
-          d.wOut = parent.wOut;
-          d.hOut = parent.hOut;
-          d.chOut = parent.chOut;
+          parent0 = n.parents[0].analysis;
+          d.wOut = parent0.wOut;
+          d.hOut = parent0.hOut;
+          d.chOut = parent0.chOut;
           //computation: scale = multiplication
           d.comp.add = d.wOut * d.hOut * d.chOut * d.batchOut;
           //memory
@@ -16580,10 +16580,10 @@ module.exports = Analyzer = class Analyzer {
         case "axpy":
           //dimensions
           //# assume pass-through
-          parent = n.parents[0].analysis;
-          d.wOut = parent.wOut;
-          d.hOut = parent.hOut;
-          d.chOut = parent.chOut;
+          parent0 = n.parents[0].analysis;
+          d.wOut = parent0.wOut;
+          d.hOut = parent0.hOut;
+          d.chOut = parent0.chOut;
           //computation: scale = multiplication
           d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
           d.comp.add = d.wOut * d.hOut * d.chOut * d.batchOut;
