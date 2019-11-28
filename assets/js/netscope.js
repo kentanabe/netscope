@@ -16195,6 +16195,7 @@ module.exports = Analyzer = class Analyzer {
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
         case "convolution":
+        case "depthwiseconvolution":
           //dimensions
           params = n.attribs.convolution_param;
           kernel_w = (ref4 = params.kernel_w) != null ? ref4 : params.kernel_size;
