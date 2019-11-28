@@ -16538,11 +16538,55 @@ module.exports = Analyzer = class Analyzer {
         case "scale":
           //dimensions
           //# assume pass-through
-          d.wOut = d.wIn;
-          d.hOut = d.hIn;
-          d.chOut = d.chIn;
+          if (n.parents.length == 1) {
+              d.wOut = d.wIn;
+              d.hOut = d.hIn;
+              d.chOut = d.chIn;
+          } else {
+              parent = n.parents[0].analysis;
+              d.wOut = parent.wOut;
+              d.hOut = parent.hOut;
+              d.chOut = parent.chOut;
+          }
           //computation: scale = multiplication
           d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
+        case "broadcast_mul":
+          //dimensions
+          //# assume pass-through
+          parent = n.parents[0].analysis;
+          d.wOut = parent.wOut;
+          d.hOut = parent.hOut;
+          d.chOut = parent.chOut;
+          //computation: scale = multiplication
+          d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
+        case "broadcast_add":
+          //dimensions
+          //# assume pass-through
+          parent = n.parents[0].analysis;
+          d.wOut = parent.wOut;
+          d.hOut = parent.hOut;
+          d.chOut = parent.chOut;
+          //computation: scale = multiplication
+          d.comp.add = d.wOut * d.hOut * d.chOut * d.batchOut;
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
+        case "axpy":
+          //dimensions
+          //# assume pass-through
+          parent = n.parents[0].analysis;
+          d.wOut = parent.wOut;
+          d.hOut = parent.hOut;
+          d.chOut = parent.chOut;
+          //computation: scale = multiplication
+          d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
+          d.comp.add = d.wOut * d.hOut * d.chOut * d.batchOut;
           //memory
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
