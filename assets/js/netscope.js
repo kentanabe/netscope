@@ -16514,13 +16514,14 @@ module.exports = Analyzer = class Analyzer {
           pad_w = (ref46 = params.pad_w) != null ? ref46 : (ref47 = params.pad) != null ? ref47 : 0;
           pad_h = (ref48 = params.pad_h) != null ? ref48 : (ref49 = params.pad) != null ? ref49 : 0;
           numout = params.num_output;
+          group = (ref14 = params.group) != null ? ref14 : 1;
           d.wOut = stride_w * (d.wIn - 1) + kernel_w - 2 * pad_w;
           d.hOut = stride_h * (d.hIn - 1) + kernel_h - 2 * pad_h;
           d.chOut = numout;
           //computation
-          d.comp.macc = d.chIn * d.chOut * d.wOut * d.hOut * (kernel_w / stride_w) * (kernel_h / stride_h) * d.batchOut;
+          d.comp.macc = d.chIn * d.chOut * d.wOut * d.hOut * (kernel_w / stride_w) * (kernel_h / stride_h) * d.batchOut / group;
           //memory
-          d.mem.param = kernel_w * kernel_h * d.chIn * d.chOut;
+          d.mem.param = kernel_w * kernel_h * d.chIn * d.chOut / group;
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
         case "crop":

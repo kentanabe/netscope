@@ -377,13 +377,14 @@ module.exports =
                     pad_w    = params.pad_w ? (params.pad ? 0)
                     pad_h    = params.pad_h ? (params.pad ? 0)
                     numout   = params.num_output
+                    group    = params.group ? 1
                     d.wOut = (stride_w*(d.wIn-1)+kernel_w-2*pad_w)
                     d.hOut = (stride_h*(d.hIn-1)+kernel_h-2*pad_h)
                     d.chOut = numout
                     #computation
-                    d.comp.macc = d.chIn*d.chOut*d.wOut*d.hOut*(kernel_w/stride_w)*(kernel_h/stride_h)*d.batchOut
+                    d.comp.macc = d.chIn*d.chOut*d.wOut*d.hOut*(kernel_w/stride_w)*(kernel_h/stride_h)*d.batchOut/group
                     #memory
-                    d.mem.param = kernel_w*kernel_h*d.chIn*d.chOut
+                    d.mem.param = kernel_w*kernel_h*d.chIn*d.chOut/group
                     d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
 
                 when "crop"
