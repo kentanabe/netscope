@@ -16538,15 +16538,17 @@ module.exports = Analyzer = class Analyzer {
         case "scale":
           //dimensions
           //# assume pass-through
-          if (n.parents.length == 1) {
-              d.wOut = d.wIn;
-              d.hOut = d.hIn;
-              d.chOut = d.chIn;
-          } else {
-              parent0 = n.parents[0].analysis;
-              d.wOut = parent0.wOut;
-              d.hOut = parent0.hOut;
-              d.chOut = parent0.chOut;
+          d.wOut = d.wIn;
+          d.hOut = d.hIn;
+          d.chOut = d.chIn;
+          if (n.parents.length != 1) {
+              ref36 = n.parents;
+              for (l = 0, len3 = ref36.length; l < len3; l++) {
+                 p = ref36[l];
+                 d.wOut = (d.wOut < p.analysis.wOut) ? p.analysis.wOut : d.wOut;
+                 d.hOut = (d.hOut < p.analysis.hOut) ? p.analysis.hOut : d.hOut;
+                 d.wOut = (d.chOut < p.analysis.chOut) ? p.analysis.chOut : d.chOut;
+              }
           }
           //computation: scale = multiplication
           d.comp.macc = d.wOut * d.hOut * d.chOut * d.batchOut;
