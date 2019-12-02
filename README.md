@@ -9,6 +9,10 @@ This fork adds support for following layers.
 - DummyData layer
 - Pooling layer with round_mode or ceil_mode
 - Interp layer
+- Sigmoid layer
+- Tanh layer
+- Swish layer
+- Scale layer with 2 bottom blobs.
 
 ### Documentation
 - Netscope [Quick Start Guide](http://kentanabe.github.io/netscope/quickstart.html)
