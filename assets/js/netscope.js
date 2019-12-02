@@ -16440,7 +16440,6 @@ module.exports = Analyzer = class Analyzer {
         case "elu":
         case "prelu":
         case "dropout":
-        case "sigmoid":
           //dimensions
           d.wIn = parent.wOut;
           d.hIn = parent.hOut;
@@ -16449,6 +16448,36 @@ module.exports = Analyzer = class Analyzer {
           d.chOut = d.chIn = parent.chOut;
           //computation
           d.comp.comp = d.wIn * d.hIn * d.chIn * d.batchOut;
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
+        case "sigmoid":
+        case "tanh":
+          //dimensions
+          d.wIn = parent.wOut;
+          d.hIn = parent.hOut;
+          d.wOut = d.wIn;
+          d.hOut = d.hIn;
+          d.chOut = d.chIn = parent.chOut;
+          //computation
+          d.comp.comp = d.wIn * d.hIn * d.chIn * d.batchOut;
+          d.comp.exp = d.wIn * d.hIn * d.chIn * d.batchOut;
+          d.comp.add = d.wIn * d.hIn * d.chIn * d.batchOut;
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
+        case "swish":
+          //dimensions
+          d.wIn = parent.wOut;
+          d.hIn = parent.hOut;
+          d.wOut = d.wIn;
+          d.hOut = d.hIn;
+          d.chOut = d.chIn = parent.chOut;
+          //computation
+          d.comp.comp = d.wIn * d.hIn * d.chIn * d.batchOut;
+          d.comp.exp = d.wIn * d.hIn * d.chIn * d.batchOut;
+          d.comp.add = d.wIn * d.hIn * d.chIn * d.batchOut;
+          d.comp.div = d.wIn * d.hIn * d.chIn * d.batchOut;
           //memory
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;

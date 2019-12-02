@@ -311,7 +311,7 @@ module.exports =
                     d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
 
                 #relu/dropout use some memory, do some comparisons
-                when "relu", "relu6", "elu", "prelu", "dropout", "sigmoid"
+                when "relu", "relu6", "elu", "prelu", "dropout"
                     #dimensions
                     d.wIn = parent.wOut
                     d.hIn = parent.hOut
@@ -320,6 +320,35 @@ module.exports =
                     d.chOut = d.chIn = parent.chOut
                     #computation
                     d.comp.comp = d.wIn*d.hIn*d.chIn*d.batchOut
+                    #memory
+                    d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+
+                when "sigmoid", "tanh"
+                    #dimensions
+                    d.wIn = parent.wOut
+                    d.hIn = parent.hOut
+                    d.wOut = d.wIn
+                    d.hOut = d.hIn
+                    d.chOut = d.chIn = parent.chOut
+                    #computation
+                    d.comp.comp = d.wIn*d.hIn*d.chIn*d.batchOut
+                    d.comp.add = d.wIn*d.hIn*d.chIn*d.batchOut
+                    d.comp.exp = d.wIn*d.hIn*d.chIn*d.batchOut
+                    #memory
+                    d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+
+                when "swish"
+                    #dimensions
+                    d.wIn = parent.wOut
+                    d.hIn = parent.hOut
+                    d.wOut = d.wIn
+                    d.hOut = d.hIn
+                    d.chOut = d.chIn = parent.chOut
+                    #computation
+                    d.comp.comp = d.wIn*d.hIn*d.chIn*d.batchOut
+                    d.comp.add = d.wIn*d.hIn*d.chIn*d.batchOut
+                    d.comp.exp = d.wIn*d.hIn*d.chIn*d.batchOut
+                    d.comp.div = d.wIn*d.hIn*d.chIn*d.batchOut
                     #memory
                     d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
 
