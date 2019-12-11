@@ -29,18 +29,20 @@ layer {
 }
 
 layer {
+  bottom: "data"
   top: "_conv_stem_dummy"
   name: "_conv_stem_dummy"
-  type: "DummyData"
-  dummy_data_param {
-    shape: {
-      dim: 1
-      dim: 1
-      dim: 112
-      dim: 112
-    }
+  type: "Convolution"
+  convolution_param {
+    num_output: 1
+    kernel_size: 3
+    pad: 1
+    group: 1
+    stride: 2
+    bias_term: false
   }
 }
+
 layer {
   name: "_conv_stem_crop"
   type: "Crop"
@@ -326,18 +328,20 @@ layer {
 }
 
 layer {
+  bottom: "_blocks.1._swish0"
   top: "_blocks.1._depthwise_conv_dummy"
   name: "_blocks.1._depthwise_conv_dummy"
-  type: "DummyData"
-  dummy_data_param {
-    shape: {
-      dim: 1
-      dim: 1
-      dim: 56
-      dim: 56
-    }
+  type: "Convolution"
+  convolution_param {
+    num_output: 1
+    kernel_size: 3
+    pad: 1
+    group: 1
+    stride: 2
+    bias_term: false
   }
 }
+
 layer {
   name: "_blocks.1._depthwise_conv_crop"
   type: "Crop"
@@ -813,18 +817,20 @@ layer {
 }
 
 layer {
+  bottom: "_blocks.3._swish0"
   top: "_blocks.3._depthwise_conv_dummy"
   name: "_blocks.3._depthwise_conv_dummy"
-  type: "DummyData"
-  dummy_data_param {
-    shape: {
-      dim: 1
-      dim: 1
-      dim: 28
-      dim: 28
-    }
+  type: "Convolution"
+  convolution_param {
+    num_output: 1
+    kernel_size: 5
+    pad: 2
+    group: 1
+    stride: 2
+    bias_term: false
   }
 }
+
 layer {
   name: "_blocks.3._depthwise_conv_crop"
   type: "Crop"
@@ -1300,18 +1306,20 @@ layer {
 }
 
 layer {
+  bottom: "_blocks.5._swish0"
   top: "_blocks.5._depthwise_conv_dummy"
   name: "_blocks.5._depthwise_conv_dummy"
-  type: "DummyData"
-  dummy_data_param {
-    shape: {
-      dim: 1
-      dim: 1
-      dim: 14
-      dim: 14
-    }
+  type: "Convolution"
+  convolution_param {
+    num_output: 1
+    kernel_size: 3
+    pad: 1
+    group: 1
+    stride: 2
+    bias_term: false
   }
 }
+
 layer {
   name: "_blocks.5._depthwise_conv_crop"
   type: "Crop"
@@ -2730,18 +2738,20 @@ layer {
 }
 
 layer {
+  bottom: "_blocks.11._swish0"
   top: "_blocks.11._depthwise_conv_dummy"
   name: "_blocks.11._depthwise_conv_dummy"
-  type: "DummyData"
-  dummy_data_param {
-    shape: {
-      dim: 1
-      dim: 1
-      dim: 7
-      dim: 7
-    }
+  type: "Convolution"
+  convolution_param {
+    num_output: 1
+    kernel_size: 5
+    pad: 2
+    group: 1
+    stride: 2
+    bias_term: false
   }
 }
+
 layer {
   name: "_blocks.11._depthwise_conv_crop"
   type: "Crop"
