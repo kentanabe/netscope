@@ -13,7 +13,12 @@ module.exports =
             layertype = n.type.toLowerCase()
             # Setup Default Values for Analysis
             d = n.analysis
-            d.wIn = d.hIn = d.wOut = d.hOut = d.chIn = d.chOut = 0
+            d.wIn = d.wIn ? 0
+            d.hIn = d.hIn ? 0
+            d.wOut = d.wOut ? 0
+            d.hOut = d.hOut ? 0
+            d.chIn = d.chIn ? 0
+            d.chOut = d.chOut ? 0
             d.comp = {macc: 0, comp: 0, add: 0, div: 0, exp: 0}
             d.mem  = {activation: 0, param: 0}
             d.variants = [];
@@ -23,9 +28,12 @@ module.exports =
 
             # Setup default channels + dimensions: inherited from parent
             d.batchOut = d.batchIn = parent?.batchOut
-            d.wIn  = parent?.wOut
-            d.hIn  = parent?.hOut
-            d.chIn = parent?.chOut
+            if d.wIn == 0
+                d.wIn = parent?.wOut
+            if d.hIn == 0
+                d.hIn = parent?.hOut
+            if d.chIn == 0
+                d.chIn = parent?.chOut
             switch layertype
                 when "data", "input"
                     #dimensions
@@ -445,10 +453,9 @@ module.exports =
                     else if n.children.length == 2
                         n.children[0].analysis.chIn = slice_points
                         n.children[1].analysis.chIn = d.chIn - slice_points[j]
-                    else
-                        d.chOut = d.chIn
                     d.wOut = d.wIn
                     d.hOut = d.hIn
+                    d.chOut = d.chIn
                     #computation
                     # --none
                     #memory

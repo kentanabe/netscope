@@ -16118,7 +16118,12 @@ module.exports = Analyzer = class Analyzer {
       layertype = n.type.toLowerCase();
       // Setup Default Values for Analysis
       d = n.analysis;
-      d.wIn = d.hIn = d.wOut = d.hOut = d.chIn = d.chOut = 0;
+      d.wIn = d.wIn != null ? d.wIn : 0
+      d.hIn = d.hIn != null ? d.hIn : 0
+      d.wOut = d.wOut != null ? d.wOut : 0
+      d.hOut = d.hOut != null ? d.hOut : 0
+      d.chIn = d.chIn != null ? d.chIn : 0
+      d.chOut = d.chOut != null ? d.chOut : 0
       d.comp = {
         macc: 0,
         comp: 0,
@@ -16134,9 +16139,15 @@ module.exports = Analyzer = class Analyzer {
       parent = (ref1 = n.parents[0]) != null ? ref1.analysis : void 0;
       // Setup default channels + dimensions: inherited from parent
       d.batchOut = d.batchIn = parent != null ? parent.batchOut : void 0;
-      d.wIn = parent != null ? parent.wOut : void 0;
-      d.hIn = parent != null ? parent.hOut : void 0;
-      d.chIn = parent != null ? parent.chOut : void 0;
+      if (d.wIn == 0) {
+        d.wIn = parent != null ? parent.wOut : void 0;
+      }
+      if (d.hIn == 0) {
+        d.hIn = parent != null ? parent.hOut : void 0;
+      }
+      if (d.chIn == 0) {
+        d.chIn = parent != null ? parent.chOut : void 0;
+      }
       switch (layertype) {
         case "data":
         case "input":
@@ -16585,12 +16596,10 @@ module.exports = Analyzer = class Analyzer {
           } else if (ref34.length == 2) {
               n.children[0].analysis.chIn = slice_points;
               n.children[1].analysis.chIn = d.chIn - slice_points;
-          } else {
-              d.chOut = d.chIn;
           }
           d.wOut = d.wIn;
           d.hOut = d.hIn;
-          //d.chOut = d.chIn;
+          d.chOut = d.chIn;
           //computation
           // --none
           //memory
