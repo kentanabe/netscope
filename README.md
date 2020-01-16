@@ -23,6 +23,7 @@ This fork adds support for following layers.
 - Netscope [Quick Start Guide](http://kentanabe.github.io/netscope/quickstart.html)
 
 ### Demo
+- :new: [Visualization of DPN-92](http://kentanabe.github.io/netscope/#/preset/deploy_dpn92)
 - :new: [Visualization of EfficientNet-b0](http://kentanabe.github.io/netscope/#/preset/efficientnet-b0)
 - :new: [Visualization of ERFNet](http://kentanabe.github.io/netscope/#/preset/erfnet_deploy_mergebn)
 - :new: [Visualization of MobileNetV3 with standard convolution](http://kentanabe.github.io/netscope/#/preset/MobileNetV3_std_conv)
