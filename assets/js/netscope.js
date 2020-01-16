@@ -16582,7 +16582,7 @@ module.exports = Analyzer = class Analyzer {
                       child.chIn = slice_points[j] - slice_points[j-1];
                   }
               }
-          else if (ref34.length == 2) {
+          } else if (ref34.length == 2) {
               n.children[0].chIn = slice_points;
               n.children[1].chIn = d.chIn - slice_points;
           } else {
