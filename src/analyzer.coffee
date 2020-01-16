@@ -436,15 +436,15 @@ module.exports =
                         j = 0
                         for child in n.children
                             if j == 0
-                                child.chIn = slice_points[j]
+                                child.analysis.chIn = slice_points[j]
                             else if child_id == n.children.length - 1
-                                child.chIn = d.chIn - slice_points[j-1]
+                                child.analysis.chIn = d.chIn - slice_points[j-1]
                             else
-                                child.chIn = slice_points[j] - slice_points[j-1]
+                                child.analysis.chIn = slice_points[j] - slice_points[j-1]
                             j += 1
                     else if n.children.length == 2
-                        n.children[0].chIn = slice_points
-                        n.children[0] = d.chIn - slice_points[j]
+                        n.children[0].analysis.chIn = slice_points
+                        n.children[1].analysis.chIn = d.chIn - slice_points[j]
                     else
                         d.chOut = d.chIn
                     d.wOut = d.wIn

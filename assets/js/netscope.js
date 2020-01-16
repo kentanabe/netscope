@@ -16575,16 +16575,16 @@ module.exports = Analyzer = class Analyzer {
               for (j = 0, len1 = ref34.length; j < len1; j++) {
                   child = ref34[j];
                   if (j == 0) {
-                      child.chIn = slice_points[j];
+                      child.analysis.chIn = slice_points[j];
                   } else if (j == ref34.length - 1) {
-                      child.chIn = d.chIn - slice_points[j-1];
+                      child.analysis.chIn = d.chIn - slice_points[j-1];
                   } else {
-                      child.chIn = slice_points[j] - slice_points[j-1];
+                      child.analysis.chIn = slice_points[j] - slice_points[j-1];
                   }
               }
           } else if (ref34.length == 2) {
-              n.children[0].chIn = slice_points;
-              n.children[1].chIn = d.chIn - slice_points;
+              n.children[0].analysis.chIn = slice_points;
+              n.children[1].analysis.chIn = d.chIn - slice_points;
           } else {
               d.chOut = d.chIn;
           }
