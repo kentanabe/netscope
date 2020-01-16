@@ -16565,6 +16565,22 @@ module.exports = Analyzer = class Analyzer {
           //memory
           d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
           break;
+        case "slice":
+          //dimensions
+          params   = n.attribs.slice_param;
+          slice_points = (ref40 = params.slice_point) != null ? ref40 : null;
+          
+          ref34 = n.children;
+          for (j = 0, len1 = ref34.length; j < len1; j++) {
+              child = ref34[j];
+          d.wOut = d.wIn;
+          d.hOut = d.hIn;
+          d.chOut = d.chIn;
+          //computation
+          // --none
+          //memory
+          d.mem.activation = d.wOut * d.hOut * d.chOut * d.batchOut;
+          break;
         //scale layer use activation memory and does multiplies
         case "scale":
           //dimensions

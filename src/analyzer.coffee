@@ -428,6 +428,20 @@ module.exports =
                     #memory
                     d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
 
+                when "slice"
+                    #dimensions
+                    params   = n.attribs.slice_param
+                    slice_points = params.slice_point ? 0
+                    #for child in n.children
+
+                    d.wOut = d.wIn
+                    d.hOut = d.hIn
+                    d.chOut = d.chIn
+                    #computation
+                    # --none
+                    #memory
+                    d.mem.activation = d.wOut*d.hOut*d.chOut*d.batchOut
+
                 #scale layer use activation memory and does multiplies
                 when "scale"
                     #dimensions
