@@ -16583,7 +16583,7 @@ module.exports = Analyzer = class Analyzer {
           }
           d.wOut = d.wIn;
           d.hOut = d.hIn;
-#          d.chOut = d.chIn;
+          //d.chOut = d.chIn;
           //computation
           // --none
           //memory
