@@ -16568,15 +16568,22 @@ module.exports = Analyzer = class Analyzer {
         case "slice":
           //dimensions
           params   = n.attribs.slice_param;
-          slice_points = (ref40 = params.slice_point) != null ? ref40 : null;
+          slice_points = (ref40 = params.slice_point) != null ? ref40 : [];
           
           ref34 = n.children;
           for (j = 0, len1 = ref34.length; j < len1; j++) {
               child = ref34[j];
+              if (j == 0) {
+                  child.chIn = slice_points[j];
+              } else if (j == ref34.length - 1) {
+                  child.chIn = d.chIn - slice_points[j-1];
+              } else {
+                  child.chIn = slice_points[j] - slice_points[j-1];
+              }
           }
           d.wOut = d.wIn;
           d.hOut = d.hIn;
-          d.chOut = d.chIn;
+#          d.chOut = d.chIn;
           //computation
           // --none
           //memory

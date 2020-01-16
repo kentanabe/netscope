@@ -431,12 +431,20 @@ module.exports =
                 when "slice"
                     #dimensions
                     params   = n.attribs.slice_param
-                    slice_points = params.slice_point ? 0
-                    #for child in n.children
+                    slice_points = params.slice_point ? []
+                    j = 0
+                    for child in n.children
+                        if j == 0
+                            child.chIn = slice_points[j]
+                        else if child_id == n.children.length - 1
+                            child.chIn = d.chIn - slice_points[j-1]
+                        else
+                            child.chIn = slice_points[j] - slice_points[j-1]
+                        j += 1
 
                     d.wOut = d.wIn
                     d.hOut = d.hIn
-                    d.chOut = d.chIn
+#                    d.chOut = d.chIn
                     #computation
                     # --none
                     #memory
