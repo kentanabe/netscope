@@ -16573,6 +16573,7 @@ module.exports = Analyzer = class Analyzer {
           ref34 = n.children;
           for (j = 0, len1 = ref34.length; j < len1; j++) {
               child = ref34[j];
+          }
           d.wOut = d.wIn;
           d.hOut = d.hIn;
           d.chOut = d.chIn;
