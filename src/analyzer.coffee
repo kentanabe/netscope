@@ -432,19 +432,23 @@ module.exports =
                     #dimensions
                     params   = n.attribs.slice_param
                     slice_points = params.slice_point ? []
-                    j = 0
-                    for child in n.children
-                        if j == 0
-                            child.chIn = slice_points[j]
-                        else if child_id == n.children.length - 1
-                            child.chIn = d.chIn - slice_points[j-1]
-                        else
-                            child.chIn = slice_points[j] - slice_points[j-1]
-                        j += 1
-
+                    if n.children.length > 2
+                        j = 0
+                        for child in n.children
+                            if j == 0
+                                child.chIn = slice_points[j]
+                            else if child_id == n.children.length - 1
+                                child.chIn = d.chIn - slice_points[j-1]
+                            else
+                                child.chIn = slice_points[j] - slice_points[j-1]
+                            j += 1
+                    else if n.children.length == 2
+                        n.children[0].chIn = slice_points
+                        n.children[0] = d.chIn - slice_points[j]
+                    else
+                        d.chOut = d.chIn
                     d.wOut = d.wIn
                     d.hOut = d.hIn
-#                    d.chOut = d.chIn
                     #computation
                     # --none
                     #memory
