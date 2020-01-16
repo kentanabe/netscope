@@ -6,11 +6,11 @@ This is a CNN Analyzer tool, based on Netscope by [dgschwend](https://github.com
 Netscope is a web-based tool for visualizing neural network topologies. It currently supports UC Berkeley's [Caffe framework](https://github.com/bvlc/caffe).
 
 This fork adds support for following layers.
-- axpy
-- broadcast_add
-- broadcast_mul
+- axpy layer
+- broadcast_add layer
+- broadcast_mul layer
 - DummyData layer
-- DepthwiseConvolution
+- DepthwiseConvolution layer
 - Interp layer
 - Pooling layer with round_mode or ceil_mode
 - Scale layer with 2 bottom blobs.
