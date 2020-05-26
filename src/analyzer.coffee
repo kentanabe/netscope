@@ -101,13 +101,13 @@ module.exports =
                     pad_h    = params.pad_h ? (params.pad ? 0)
                     numout   = params.num_output
                     group    = params.group ? 1
-                    dilation = params.dilation ? []
-                    if dilation.length > 1
-                        dilation_h = dilation[0]
-                        dilation_w = dilation[1]
-                    else if dilation.length == 1
-                        dilation_h = dilation[0]
-                        dilation_w = dilation[0]
+                    dilations = params.dilation ? []
+                    if dilations.length > 1
+                        dilation_h = dilations[0]
+                        dilation_w = dilations[1]
+                    else if dilations.length == 1
+                        dilation_h = dilations[0]
+                        dilation_w = dilations[0]
                     else
                         dilation_h = 1
                         dilation_w = 1

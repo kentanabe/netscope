@@ -16217,13 +16217,13 @@ module.exports = Analyzer = class Analyzer {
           pad_h = (ref12 = params.pad_h) != null ? ref12 : (ref13 = params.pad) != null ? ref13 : 0;
           numout = params.num_output;
           group = (ref14 = params.group) != null ? ref14 : 1;
-          dilation = (ref15 = params.dilation) != null ? ref15 : [];
-          if (dilation.length > 1) {
-              dilation_h = dilation[0];
-              dilation_w = dilation[1];
-          } else if (dilation.length == 1) {
-              dilation_h = dilation[0];
-              dilation_w = dilation[0];
+          dilations = (ref15 = params.dilation) != null ? ref15 : [];
+          if (dilations.length > 1) {
+              dilation_h = dilations[0];
+              dilation_w = dilations[1];
+          } else if (dilations.length == 1) {
+              dilation_h = dilations[0];
+              dilation_w = dilations[0];
           } else {
               dilation_h = 1;
               dilation_w = 1;
