@@ -16107,7 +16107,7 @@ module.exports = Analyzer = class Analyzer {
   constructor() {}
 
   analyze(net) {
-    var aspect_ratios, ceil_mode, channels, child, d, dilation, dim_in, failed, feature_map, group, has_bias, has_height, has_shrink_factor, has_zoom_factor, has_width, height, height_in_eff_, height_out_, i, infered_dim, isglobal, j, k, kernel, kernel_h, kernel_w, key, l, layertype, len, len1, len2, len3, mem, mode, module, n, n_elements, newshape, num, num_inputs, num_ops, num_priors, num_region_proposals, numout, op, ops, p, pad_beg, pad_end, pad_h, pad_w, params, parent, parent0, parent2, permutation, pooltype, power, prod_in_dims, prod_out_dims, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref30, ref31, ref32, ref33, ref34, ref35, ref36, ref37, ref38, ref39, ref4, ref40, ref41, ref42, ref43, ref44, ref45, ref46, ref47, ref48, ref49, ref5, ref50, ref51, ref52, ref53, ref54, ref55, ref56, ref57, ref58, ref6, ref7, ref8, ref9, roi_proposals, round_mode, scale, settings, shape, shift, shrink_factor, size, slice_points, stride_h, stride_w, summary, trivial_layers, val, width, width_in_eff_, width_out_, zoom_factor;
+    var aspect_ratios, ceil_mode, channels, child, d, dilations, dilation_h, dilation_w, dim_in, failed, feature_map, group, has_bias, has_height, has_shrink_factor, has_zoom_factor, has_width, height, height_in_eff_, height_out_, i, infered_dim, isglobal, j, k, kernel, kernel_h, kernel_w, key, l, layertype, len, len1, len2, len3, mem, mode, module, n, n_elements, newshape, num, num_inputs, num_ops, num_priors, num_region_proposals, numout, op, ops, p, pad_beg, pad_end, pad_h, pad_w, params, parent, parent0, parent2, permutation, pooltype, power, prod_in_dims, prod_out_dims, ref, ref1, ref10, ref11, ref12, ref13, ref14, ref15, ref16, ref17, ref18, ref19, ref2, ref20, ref21, ref22, ref23, ref24, ref25, ref26, ref27, ref28, ref29, ref3, ref30, ref31, ref32, ref33, ref34, ref35, ref36, ref37, ref38, ref39, ref4, ref40, ref41, ref42, ref43, ref44, ref45, ref46, ref47, ref48, ref49, ref5, ref50, ref51, ref52, ref53, ref54, ref55, ref56, ref57, ref58, ref6, ref7, ref8, ref9, roi_proposals, round_mode, scale, settings, shape, shift, shrink_factor, size, slice_points, stride_h, stride_w, summary, trivial_layers, val, width, width_in_eff_, width_out_, zoom_factor;
     ref = net.sortTopologically();
     //# Add Input/Output Dimensions + Channels to each Node / Layer
     // shape.dim: (    N   x   K   x   W   x   H   )
@@ -16217,12 +16217,23 @@ module.exports = Analyzer = class Analyzer {
           pad_h = (ref12 = params.pad_h) != null ? ref12 : (ref13 = params.pad) != null ? ref13 : 0;
           numout = params.num_output;
           group = (ref14 = params.group) != null ? ref14 : 1;
-          dilation = (ref15 = params.dilation) != null ? ref15 : 1;
+          dilation = (ref15 = params.dilation) != null ? ref15 : [];
+          if (dilation.length > 1) {
+              dilation_h = dilation[0];
+              dilation_w = dilation[1];
+          } else if (dilation.length == 1) {
+              dilation_h = dilation[0];
+              dilation_w = dilation[0];
+          } else {
+              dilation_h = 1;
+              dilation_w = 1;
+          }
+
           has_bias = ((ref16 = params.bias_term) != null ? ref16 : "true") === "false" ? 0 : 1;
           // according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
-          kernel = dilation * (kernel_w - 1) + 1;
+          kernel = dilation_w * (kernel_w - 1) + 1;
           d.wOut = Math.floor((d.wIn + 2 * pad_w - kernel) / stride_w) + 1;
-          kernel = dilation * (kernel_h - 1) + 1;
+          kernel = dilation_h * (kernel_h - 1) + 1;
           d.hOut = Math.floor((d.hIn + 2 * pad_h - kernel) / stride_h) + 1;
           d.chOut = numout;
           //computation

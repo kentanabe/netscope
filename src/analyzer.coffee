@@ -101,13 +101,22 @@ module.exports =
                     pad_h    = params.pad_h ? (params.pad ? 0)
                     numout   = params.num_output
                     group    = params.group ? 1
-                    dilation = params.dilation ? 1
+                    dilation = params.dilation ? []
+                    if dilation.length > 1
+                        dilation_h = dilation[0]
+                        dilation_w = dilation[1]
+                    else if dilation.length == 1
+                        dilation_h = dilation[0]
+                        dilation_w = dilation[0]
+                    else
+                        dilation_h = 1
+                        dilation_w = 1
                     has_bias = if (params.bias_term ? "true") == "false" then 0 else 1
 
                     # according to http://caffe.berkeleyvision.org/tutorial/layers.html and https://github.com/BVLC/caffe/issues/3656
-                    kernel = dilation*(kernel_w-1)+1
+                    kernel = dilation_w*(kernel_w-1)+1
                     d.wOut = Math.floor((d.wIn + 2*pad_w - kernel) / stride_w) + 1
-                    kernel = dilation*(kernel_h-1)+1
+                    kernel = dilation_h*(kernel_h-1)+1
                     d.hOut = Math.floor((d.hIn + 2*pad_h - kernel) / stride_h) + 1
 
                     d.chOut = numout
